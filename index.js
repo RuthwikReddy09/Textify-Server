@@ -7,13 +7,17 @@ app.use(cors());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb',extended: true }));
 
+
+app.get("/",(req,res)=>{
+  res.send("Hello from server")
+})
 app.post('/convert', (req, res) => {
     Tesseract.recognize(
         `${req.body.text}`,
         'eng',
         // { logger: m => console.log(m) }
       ).then(({ data: { text } }) => {
-        // console.log(text);
+        console.log(text);
         res.send({output:text});     
       }).catch((err)=>{
         console.warn(err)
